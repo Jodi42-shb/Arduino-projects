@@ -1,0 +1,96 @@
+const int ledPin = 13;
+
+const int dotDelay = 100;
+const int dashDelay = 150;
+const int symbolGap = 100;
+const int letterGap = 150;
+
+String morseMap(char c) {
+  switch (tolower(c)) {
+    case 'a': return ".-";
+    case 'b': return "-...";
+    case 'c': return "-.-.";
+    case 'd': return "-..";
+    case 'e': return ".";
+    case 'f': return "..-.";
+    case 'g': return "--.";
+    case 'h': return "....";
+    case 'i': return "..";
+    case 'j': return ".---";
+    case 'k': return "-.-";
+    case 'l': return ".-..";
+    case 'm': return "--";
+    case 'n': return "-.";
+    case 'o': return "---";
+    case 'p': return ".--.";
+    case 'q': return "--.-";
+    case 'r': return ".-.";
+    case 's': return "...";
+    case 't': return "-";
+    case 'u': return "..-";
+    case 'v': return "...-";
+    case 'w': return ".--";
+    case 'x': return "-..-";
+    case 'y': return "-.--";
+    case 'z': return "--..";
+    default: return "";
+  }
+}
+
+void blinkDot() {
+  digitalWrite(ledPin, HIGH);
+  delay(dotDelay);
+  digitalWrite(ledPin, LOW);
+}
+
+void blinkDash() {
+  digitalWrite(ledPin, HIGH);
+  delay(dashDelay);
+  digitalWrite(ledPin, LOW);
+}
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available()) {
+    char c = Serial.read();
+
+    if (c == '\n' || c == '\r') return;
+
+    String code = morseMap(c);
+
+    // 🔸 Send to laptop
+    Serial.print(c);
+    Serial.print(" : ");
+    Serial.println(code);
+
+    // 🔸 Blink LED
+    for (int i = 0; i < code.length(); i++) {
+      if (code[i] == '.') blinkDot();
+      else if (code[i] == '-') blinkDash();
+
+      delay(symbolGap);
+    }
+
+    delay(letterGap);
+  }
+}
+//   pinMode(13, OUTPUT);
+//   Serial.begin(9600);
+// }
+//
+// void loop() {
+//   if (Serial.available()) {
+//     char c = Serial.read();
+//
+//     Serial.print("Received: ");
+//     Serial.println(c);
+//
+//     digitalWrite(13, HIGH);
+//     delay(200);
+//     digitalWrite(13, LOW);
+//   }
+// }
