@@ -202,6 +202,9 @@ ArduinoCloudAgent
 
 *.bin
 *.png
+*.jpg
+*.jpeg
+
 fingerprint
 
 .env

@@ -2,7 +2,7 @@
 
 ArduinoLEDMatrix matrix;
 
-// --- BBCODE SMILEY BITMAPS (8x12) ---
+// --- BITMAPS MUST BE DEFINED AT THE TOP ---
 
 uint8_t face_happy[8][12] = {
   {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0},
@@ -76,26 +76,125 @@ uint8_t face_cool[8][12] = {
   {0,1,0,0,0,0,0,0,0,0,1,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
 };
 
+uint8_t face_cryhappy[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0},
+  {0,0,0,1,0,0,0,1,0,0,0,0}, {0,0,0,1,0,1,0,0,0,0,1,0}, {0,0,1,0,0,0,0,0,0,1,0,0},
+  {0,0,0,1,1,1,1,1,1,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_cry[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0},
+  {0,0,0,1,0,0,0,1,0,0,0,0}, {0,0,0,1,0,0,0,1,1,1,1,1}, {0,0,1,0,0,0,0,0,0,1,0,0},
+  {0,1,0,0,0,0,0,0,0,0,1,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_evil[8][12] = {
+  {0,1,1,0,0,0,0,0,0,1,1,0}, {0,0,0,1,0,0,0,0,1,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,1,1,1,1,1,1,1,1,1,1,0}, {0,1,0,0,0,0,0,0,0,0,1,0},
+  {0,0,1,1,1,1,1,1,1,1,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_kiss[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,1,0,0,0,0,0}, {0,0,0,0,0,1,0,1,0,0,0,0},
+  {0,0,0,0,0,0,1,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_angel[8][12] = {
+  {0,0,1,1,1,1,1,1,1,1,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0},
+  {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}, {0,1,0,0,0,0,0,0,0,0,1,0},
+  {0,0,1,1,1,1,1,1,1,1,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_devil[8][12] = {
+  {0,1,0,0,1,0,0,1,0,0,1,0}, {0,0,1,0,0,1,1,0,0,1,0,0}, {0,0,0,1,1,0,0,1,1,0,0,0},
+  {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,1,1,1,1,1,1,0,0,0},
+  {0,0,1,0,0,0,0,0,0,1,0,0}, {0,1,0,0,0,0,0,0,0,0,1,0}
+};
+
+uint8_t face_sleepy[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,1,0,0,0,1,1,1,0}, {0,0,0,0,1,0,0,0,0,0,1,0},
+  {0,0,1,1,1,0,0,0,1,1,1,0}, {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,1,1,1,1,1,1,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,1,1,1,1,0,0,0,0}
+};
+
+uint8_t face_nervous[8][12] = {
+  {0,0,0,0,0,0,0,1,0,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,1,1,0,0,0,1,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,1,1,1,1,1,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_nerd[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,1,1,1,1,0,1,1,1,1,0,0}, {0,1,0,0,1,0,1,0,0,1,0,0},
+  {0,1,1,1,1,0,1,1,1,1,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}, {0,1,0,0,0,0,0,0,0,0,1,0},
+  {0,0,1,1,1,1,1,1,1,1,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_zip[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0}, {0,0,1,1,0,0,0,0,1,1,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,0,1,0,1,0,1,0,1,0}, {0,0,0,1,0,1,0,1,0,1,0,0},
+  {0,0,1,0,1,0,1,0,1,0,1,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_heart[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,1,1,0,0,0}, {0,1,1,1,1,0,1,1,1,1,0,0},
+  {0,1,1,1,1,1,1,1,1,1,0,0}, {0,0,1,1,1,1,1,1,1,0,0,0}, {0,0,0,1,1,1,1,1,0,0,0,0},
+  {0,0,0,0,1,1,1,0,0,0,0,0}, {0,0,0,0,0,1,0,0,0,0,0,0}
+};
+
+uint8_t face_brokenheart[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,0,0,0,1,1,0,0,0}, {0,1,1,1,1,0,1,1,1,1,0,0},
+  {0,1,1,0,0,1,0,0,1,1,0,0}, {0,0,1,0,1,0,0,1,1,0,0,0}, {0,0,0,1,0,0,1,1,0,0,0,0},
+  {0,0,0,0,1,1,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_thumbsup[8][12] = {
+  {0,0,0,0,1,0,0,0,0,0,0,0}, {0,0,0,1,0,0,0,0,0,0,0,0}, {0,0,1,1,1,1,1,0,0,0,0,0},
+  {0,1,1,0,1,1,1,0,0,0,0,0}, {0,1,1,1,1,1,1,0,0,0,0,0}, {0,1,1,1,1,1,1,0,0,0,0,0},
+  {0,0,1,1,1,1,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+uint8_t face_thumbsdown[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,1,1,1,1,0,0,0,0,0,0}, {0,1,1,1,1,1,1,0,0,0,0,0},
+  {0,1,1,1,1,1,1,0,0,0,0,0}, {0,1,1,0,1,1,1,0,0,0,0,0}, {0,0,1,1,1,1,1,0,0,0,0,0},
+  {0,0,0,1,0,0,0,0,0,0,0,0}, {0,0,0,0,1,0,0,0,0,0,0,0}
+};
+
 String inputBuffer = "";
+
+// --- FUNCTIONS GO AFTER BITMAPS ---
 
 void displayEmoji(String t) {
   t.trim();
-
-  if (t == ":)" || t == "=)")      matrix.renderBitmap(face_happy, 8, 12);
-  else if (t == ":|" || t == "=|") matrix.renderBitmap(face_neutral, 8, 12);
-  else if (t == ":(" || t == "=(") matrix.renderBitmap(face_sad, 8, 12);
-  else if (t == ":D" || t == "=D") matrix.renderBitmap(face_grin, 8, 12);
-  else if (t == ":o" || t == ":O") matrix.renderBitmap(face_surprise, 8, 12);
-  else if (t == ";)")              matrix.renderBitmap(face_wink, 8, 12);
-  else if (t == ":/")              matrix.renderBitmap(face_skeptical, 8, 12);
-  else if (t == ":P" || t == ":p") matrix.renderBitmap(face_tongue, 8, 12);
-  else if (t == "lol")           matrix.renderBitmap(face_lol, 8, 12);
-  else if (t == "mad")           matrix.renderBitmap(face_mad, 8, 12);
-  else if (t == "rolleyes")      matrix.renderBitmap(face_rolleyes, 8, 12);
-  else if (t == "cool")          matrix.renderBitmap(face_cool, 8, 12);
+  if      (t == ":)" || t == "=)")      matrix.renderBitmap(face_happy,      8, 12);
+  else if (t == ":|" || t == "=|")      matrix.renderBitmap(face_neutral,    8, 12);
+  else if (t == ":(" || t == "=(")      matrix.renderBitmap(face_sad,        8, 12);
+  else if (t == ":D" || t == "=D")      matrix.renderBitmap(face_grin,       8, 12);
+  else if (t == ":o" || t == ":O")      matrix.renderBitmap(face_surprise,   8, 12);
+  else if (t == ";)")                   matrix.renderBitmap(face_wink,       8, 12);
+  else if (t == ":/")                   matrix.renderBitmap(face_skeptical,  8, 12);
+  else if (t == ":P" || t == ":p")      matrix.renderBitmap(face_tongue,     8, 12);
+  else if (t == "lol")                  matrix.renderBitmap(face_lol,        8, 12);
+  else if (t == "mad")                  matrix.renderBitmap(face_mad,        8, 12);
+  else if (t == "rolleyes")              matrix.renderBitmap(face_rolleyes,   8, 12);
+  else if (t == "cool")                 matrix.renderBitmap(face_cool,       8, 12);
+  else if (t == ":')" || t == "cryhappy") matrix.renderBitmap(face_cryhappy,  8, 12);
+  else if (t == ":'" || t == ":'(" || t == "cry") matrix.renderBitmap(face_cry, 8, 12);
+  else if (t == ">:)" || t == "evil")     matrix.renderBitmap(face_evil,      8, 12);
+  else if (t == ":*" || t == "kiss")      matrix.renderBitmap(face_kiss,      8, 12);
+  else if (t == "O:)" || t == "angel")    matrix.renderBitmap(face_angel,     8, 12);
+  else if (t == ">:(" || t == "devil")    matrix.renderBitmap(face_devil,     8, 12);
+  else if (t == ":z" || t == ":Z" || t == "sleepy") matrix.renderBitmap(face_sleepy, 8, 12);
+  else if (t == ":s" || t == ":S" || t == "nervous") matrix.renderBitmap(face_nervous, 8, 12);
+  else if (t == "8)" || t == "nerd")      matrix.renderBitmap(face_nerd,      8, 12);
+  else if (t == ":X" || t == ":x" || t == "zip") matrix.renderBitmap(face_zip, 8, 12);
+  else if (t == "<3" || t == "heart")     matrix.renderBitmap(face_heart,     8, 12);
+  else if (t == "</3" || t == "brokenheart") matrix.renderBitmap(face_brokenheart, 8, 12);
+  else if (t == "up" || t == "u" || t == "thumbsup") matrix.renderBitmap(face_thumbsup, 8, 12);
+  else if (t == "down" || t == "d" || t == "thumbsdown") matrix.renderBitmap(face_thumbsdown, 8, 12);
   else {
     matrix.clear();
-    Serial.println("Not a recognized BBCode smiley.");
+    Serial.println("Not recognized.");
   }
 }
 
@@ -110,10 +209,10 @@ void loop() {
     if (c == '\n' || c == '\r') {
       if (inputBuffer.length() > 0) {
         displayEmoji(inputBuffer);
-        inputBuffer = "";
+        inputBuffer = ""; // Reset buffer after processing
       }
     } else {
-      inputBuffer += c;
+      inputBuffer += c; // Add characters to buffer
     }
   }
 }
