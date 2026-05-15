@@ -11,11 +11,11 @@ ArduinoLEDMatrix matrix;
 // ──────────────────────────────────────────────────────────────
 
 // Timing constants
-const int dotDelay    = 250;
-const int dashDelay   = 700;
-const int symbolGap   = 200;
-const int letterGap   = 600;
-const int wordGap     = 1200;
+const int dotDelay    = 40;   // 1 unit
+const int dashDelay   = 120;  // 3 units
+const int symbolGap   = 40;   // 1 unit  (gap between dots/dashes in same letter)
+const int letterGap   = 120;  // 3 units (gap between letters)
+const int wordGap     = 280;  // 7 units (gap between words)
 
 // A single-pixel dot at the center (Row 3, Column 5)
 uint8_t dot_frame[8][12] = {
