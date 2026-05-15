@@ -1,41 +1,64 @@
 #include "Arduino_LED_Matrix.h"
+// Buzzer pin are 9 on digital and GND on analog
+
 
 ArduinoLEDMatrix matrix;
 
+// ── Buzzer Config ──────────────────────────────────────────────
+#define BUZZER_PIN     9       // Pin 9 (matches your tested wiring)
+#define BUZZER_ENABLED true    // Set to false if no buzzer is connected
+#define BUZZ_FREQ      1000    // 1KHz — same as your working test
+// ──────────────────────────────────────────────────────────────
+
 // Timing constants
-const int dotDelay = 25;
-const int dashDelay = 70;
-const int symbolGap = 20;
-const int letterGap = 60;
-const int wordGap = 120;
+const int dotDelay    = 250;
+const int dashDelay   = 700;
+const int symbolGap   = 200;
+const int letterGap   = 600;
+const int wordGap     = 1200;
 
 // A single-pixel dot at the center (Row 3, Column 5)
 uint8_t dot_frame[8][12] = {
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-  { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, // Row 3: Just one LED
+  { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-// A thin 6-pixel dash at the center (Row 3, Columns 3-8)
+// A thin 3-pixel dash at the center (Row 3, Columns 4-6)
 uint8_t dash_frame[8][12] = {
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-  { 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0 }, // Row 3: Thin horizontal line
+  { 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
+
 // Blank frame to turn everything off
 uint8_t off_frame[8][12] = {0};
 
 String inputBuffer = "";
+
+// ── Buzzer helpers ─────────────────────────────────────────────
+void buzzOn() {
+  if (BUZZER_ENABLED) {
+    tone(BUZZER_PIN, BUZZ_FREQ);
+  }
+}
+
+void buzzOff() {
+  if (BUZZER_ENABLED) {
+    noTone(BUZZER_PIN);
+  }
+}
+// ──────────────────────────────────────────────────────────────
 
 String morseMap(char c) {
   switch (tolower(c)) {
@@ -48,35 +71,42 @@ String morseMap(char c) {
     case 's': return "...";  case 't': return "-";    case 'u': return "..-";
     case 'v': return "...-"; case 'w': return ".--";  case 'x': return "-..-";
     case 'y': return "-.--"; case 'z': return "--..";
-    default: return "";
+    default:  return "";
   }
 }
 
 void showDot() {
   matrix.renderBitmap(dot_frame, 8, 12);
+  buzzOn();                               // tone starts
   delay(dotDelay);
-  matrix.renderBitmap(off_frame, 8, 12);
+  buzzOff();                              // tone stops
+  matrix.renderBitmap(off_frame, 8, 12); // LED off
 }
 
 void showDash() {
   matrix.renderBitmap(dash_frame, 8, 12);
+  buzzOn();                               // tone starts
   delay(dashDelay);
-  matrix.renderBitmap(off_frame, 8, 12);
+  buzzOff();                              // tone stops
+  matrix.renderBitmap(off_frame, 8, 12); // LED off
 }
 
 void sendMorse(String text) {
   for (int i = 0; i < text.length(); i++) {
     char c = text[i];
+
     if (c == ' ') {
       delay(wordGap);
       continue;
     }
+
     String code = morseMap(c);
     for (int j = 0; j < code.length(); j++) {
-      if (code[j] == '.') showDot();
+      if (code[j] == '.')      showDot();
       else if (code[j] == '-') showDash();
       delay(symbolGap);
     }
+
     delay(letterGap);
   }
 }
@@ -84,6 +114,7 @@ void sendMorse(String text) {
 void setup() {
   Serial.begin(9600);
   matrix.begin();
+  pinMode(BUZZER_PIN, OUTPUT); // Always declare pin — same as your working test
 }
 
 void loop() {
@@ -94,10 +125,10 @@ void loop() {
         Serial.print("Sending: ");
         Serial.println(inputBuffer);
         sendMorse(inputBuffer);
-        inputBuffer = ""; 
+        inputBuffer = "";
       }
     } else {
-      inputBuffer += c; 
+      inputBuffer += c;
     }
   }
 }
