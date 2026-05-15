@@ -3,11 +3,11 @@
 ArduinoLEDMatrix matrix;
 
 // Timing constants
-const int dotDelay = 250;
-const int dashDelay = 700;
-const int symbolGap = 200;
-const int letterGap = 600;
-const int wordGap = 1200;
+const int dotDelay = 25;
+const int dashDelay = 70;
+const int symbolGap = 20;
+const int letterGap = 60;
+const int wordGap = 120;
 
 // A single-pixel dot at the center (Row 3, Column 5)
 uint8_t dot_frame[8][12] = {
@@ -26,7 +26,7 @@ uint8_t dash_frame[8][12] = {
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-  { 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0 }, // Row 3: Thin horizontal line
+  { 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0 }, // Row 3: Thin horizontal line
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },

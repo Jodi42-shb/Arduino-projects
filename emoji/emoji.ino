@@ -89,13 +89,13 @@ void displayEmoji(String t) {
   else if (t == ";)")              matrix.renderBitmap(face_wink, 8, 12);
   else if (t == ":/")              matrix.renderBitmap(face_skeptical, 8, 12);
   else if (t == ":P" || t == ":p") matrix.renderBitmap(face_tongue, 8, 12);
-  else if (t == ":lol:")           matrix.renderBitmap(face_lol, 8, 12);
-  else if (t == ":mad:")           matrix.renderBitmap(face_mad, 8, 12);
-  else if (t == ":rolleyes:")      matrix.renderBitmap(face_rolleyes, 8, 12);
-  else if (t == ":cool:")          matrix.renderBitmap(face_cool, 8, 12);
+  else if (t == "lol")           matrix.renderBitmap(face_lol, 8, 12);
+  else if (t == "mad")           matrix.renderBitmap(face_mad, 8, 12);
+  else if (t == "rolleyes")      matrix.renderBitmap(face_rolleyes, 8, 12);
+  else if (t == "cool")          matrix.renderBitmap(face_cool, 8, 12);
   else {
     matrix.clear();
-    Serial.println("Not a recognized Arch BBCode smiley.");
+    Serial.println("Not a recognized BBCode smiley.");
   }
 }
 
